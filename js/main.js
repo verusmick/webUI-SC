@@ -1,83 +1,52 @@
 
-function main() {
 
-(function () {
-   'use strict';
-   
-  	$('a.page-scroll').click(function() {
-        if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') && location.hostname == this.hostname) {
-          var target = $(this.hash);
-          target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
-          if (target.length) {
-            $('html,body').animate({
-              scrollTop: target.offset().top - 40
-            }, 900);
-            return false;
-          }
-        }
-      });
-
+	$(document).ready(function () {
+		$(document).on("scroll", onScroll);
+ 
+		$('a[href^="#"]').on('click', function (e) {
+			e.preventDefault();
+			$(document).off("scroll");
+ 
+			$('a').each(function () {
+				$(this).removeClass('navactive');
+			})
+			$(this).addClass('navactive');
+ 
+			var target = this.hash;
+			$target = $(target);
+			$('html, body').stop().animate({
+				'scrollTop': $target.offset().top+2
+			}, 500, 'swing', function () {
+				window.location.hash = target;
+				$(document).on("scroll", onScroll);
+			});
+		});
+	});
+ 
+	function onScroll(event){
+		var scrollPosition = $(document).scrollTop();
+		$('.nav li a').each(function () {
+			var currentLink = $(this);
+			var refElement = $(currentLink.attr("href"));
+			if (refElement.position().top <= scrollPosition && refElement.position().top + refElement.height() > scrollPosition) {
+				$('ul.nav li a').removeClass("navactive");
+				currentLink.addClass("navactive");
+			}
+			else{
+				currentLink.removeClass("navactive");
+			}
+		});
 	
-    // Show Menu on Book
-    $(window).bind('scroll', function() {
-        var navHeight = $(window).height() - 500;
-        if ($(window).scrollTop() > navHeight) {
-            $('.navbar-default').addClass('on');
-        } else {
-            $('.navbar-default').removeClass('on');
-        }
-    });
-
-    $('body').scrollspy({ 
-        target: '.navbar-default',
-        offset: 80
-    });
-
-	// Hide nav on click
-  $(".navbar-nav li a").click(function (event) {
-    // check if window is small enough so dropdown is created
-    var toggle = $(".navbar-toggle").is(":visible");
-    if (toggle) {
-      $(".navbar-collapse").collapse('hide');
-    }
-  });
-	
-  	// Portfolio isotope filter
-    $(window).load(function() {
-        var $container = $('.portfolio-items');
-        $container.isotope({
-            filter: '*',
-            animationOptions: {
-                duration: 750,
-                easing: 'linear',
-                queue: false
-            }
-        });
-        $('.cat a').click(function() {
-            $('.cat .active').removeClass('active');
-            $(this).addClass('active');
-            var selector = $(this).attr('data-filter');
-            $container.isotope({
-                filter: selector,
-                animationOptions: {
-                    duration: 750,
-                    easing: 'linear',
-                    queue: false
-                }
+       
+        $(function(){
+            $('#portfolio').mixitup({
+                targetSelector: '.item',
+                transitionSpeed: 350
             });
-            return false;
         });
 
-    });
-	
-    // Nivo Lightbox 
-    $('.portfolio-item a').nivoLightbox({
-            effect: 'slideDown',  
-            keyboardNav: true,                            
+          $(function() {
+            $( "#datepicker" ).datepicker();
         });
-
-}());
-
-
-}
-main();
+    
+    };

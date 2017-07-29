@@ -1,6 +1,10 @@
 
 
 	$(document).ready(function () {
+		setTimeout(function(){
+			$('#preloader').addClass('hiddenPreLoader');
+			$('#status').addClass('hiddenPreLoader');
+		},3000);
 		$(document).on("scroll", onScroll);
  
 		$('a[href^="#"]').on('click', function (e) {
@@ -52,3 +56,9 @@
         });
     
     };
+
+  $('.map')
+    .click(function(){
+      $(this).find('iframe').addClass('clicked')})
+    .mouseleave(function(){
+      $(this).find('iframe').removeClass('clicked')});

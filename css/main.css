@@ -869,3 +869,42 @@ MEDIA QUERIE DESKTOP
         font-size: 30px;
     }
 }
+
+#preloader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #e18c00;
+    z-index: 9999;
+}
+
+#status {
+    width: 200px;
+    height: 200px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    background-image: url(../images/sc/white-loader.gif);
+    background-repeat: no-repeat;
+    background-position: center;
+    margin: -100px 0 0 -100px;
+}
+
+.hiddenPreLoader{
+    display: none;
+}
+
+.map {
+
+}
+.map iframe{
+
+    display: block;
+    pointer-events: none;
+
+}
+.map iframe.clicked{
+    pointer-events: auto;
+}

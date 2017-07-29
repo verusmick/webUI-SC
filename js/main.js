@@ -4,6 +4,8 @@
 		$(document).on("scroll", onScroll);
  
 		$('a[href^="#"]').on('click', function (e) {
+			console.log('test');
+			$('#bs-example-navbar-collapse-1').removeClass('in');
 			e.preventDefault();
 			$(document).off("scroll");
  
